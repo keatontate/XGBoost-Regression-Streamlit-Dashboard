@@ -4,10 +4,10 @@ You can read the details of the challenge at [challenge.md](challenge.md)
 
 ## Key Items
 
-- __Due Date:__ A date
-- __Work Rules:__ You cannot work with others.  You can ask any question you want in our general channel. Teacher and TA are the only one that can answer questions. If you leverage code from an internet connection then it should be referenced.
+- __Due Date:__ 7/19/2023
+- __Work Rules:__ You cannot work with others.  You can ask any question you want in our general channel. Teacher and TA are the only ones that can answer questions. If you leverage code from an internet connection, then it should be referenced.
 - __Product:__ A streamlit app that runs within Docker and builds from your repo.
-- __Github Process:__ Each student will fork the challenge repository and create their app. They will submit a link to the app in Canvas.
+- __Github Process:__ Each student will fork the challenge repository and create their app. They will submit a link to the Repo in Canvas.
 - __Canvas Process:__ Each student will upload a `.pdf` or `.html` files with your results as described in [challenge.md](challenge.md)
 
 
