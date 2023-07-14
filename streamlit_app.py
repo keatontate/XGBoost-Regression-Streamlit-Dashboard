@@ -1,42 +1,20 @@
-from collections import namedtuple
-from sklearn.model_selection import train_test_split
-# from xgboost import XGBRegressor
+import sklearn
+import xgboost
 import altair as alt
-import math
 import pandas as pd
 import streamlit as st
-
+import matplotlib
+import pickle
 
 """
-# Welcome to Streamlit, doodette!
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-In the meantime, below is an example of what you can do with just a few lines of code:
+# Title
+Explanation
 """
-
 
 with st.echo(code_location='below'):
-    # total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    # num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    # Point = namedtuple('Point', 'x y')
-    # data = []
-
-    # points_per_turn = total_points / num_turns
-
-    # for curr_point_num in range(total_points):
-    #     curr_turn, i = divmod(curr_point_num, points_per_turn)
-    #     angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-    #     radius = curr_point_num / total_points
-    #     x = radius * math.cos(angle)
-    #     y = radius * math.sin(angle)
-    #     data.append(Point(x, y))
-
-    # st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-    #     .mark_circle(color='#0068c9', opacity=0.5)
-    #     .encode(x='x:Q', y='y:Q'))
-    
+    """
+    # Upload Data
+    """
     ### PART 1. Allow the users to upload the [data.csv](data.csv) file into the app.
     # documentation - https://docs.streamlit.io/library/api-reference/widgets/st.file_uploader
     uploaded_data = st.file_uploader('Please upload your data as a .csv file.',type='csv')
@@ -49,11 +27,9 @@ with st.echo(code_location='below'):
 
     ### PART 2. Require the user to select the `target` variable.
     target = st.selectbox('Select the target variable', data.columns)
-    target
 
     ### PART 3. Allow the users to pick the features they want to use in their ML model.
     features = st.multiselect('Select features to use in the model', data.columns)
-    features
 
     ### PART 4. Provide a plot that allows the users to pick an x and plot it against their target (you can have it only work for numeric values).
     feature_selection = st.radio("What feature to plot against the target?",(features))
@@ -67,13 +43,71 @@ with st.echo(code_location='below'):
     st.altair_chart(feature_target_chart)
 
     ### PART 5. Explain your ML model (pick something fun or easy) and provide them a`fit` button.
+    """
+    # Train Model
+    This is an XGBoost regressor. You can click the fit button now.
+    """
     
+    model = xgboost.XGBRegressor()
+    # model = LogisticRegression()
+    X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(data[features], data[target], test_size=0.2, random_state=42)
+
+    # if st.button('Fit!'):
+    #     with st.spinner("Fitting..."):
+    #         # Create the model and train it, use default hyperparameters for now
+    #         model.fit(X_train, y_train)
+    #         # for part 8 later, we pickle the model after training
+    #         filename = "model.pkl"
+    #         pickle.dump(model, open(filename, 'wb'))
+
+    if not st.button('Fit!'):
+        st.stop()
+    else:    
+        with st.spinner("Fitting..."):
+            # Create the model and train it, use default hyperparameters for now
+            model.fit(X_train, y_train)
+            # for part 8 later, we pickle the model after training
+            filename = "model.pkl"
+            pickle.dump(model, open(filename, 'wb'))
+
+            # PART 6 stuff
+
+    # else:
+    #     st.write('Click to get started...')
 
     ### PART 6. Report a feature importance plot and at least one measure of model fit.
-    
+    # feat_imp_chart = alt.Chart(pd.Series(model.feature_importances_)).mark_bar()
+    # st.altair_chart(feat_imp_chart)
+
+    # fig, ax = matplotlib.pyplot.subplots()
+    # ax = xgboost.plot_importance(model)
+    # st.pyplot(fig)
+
+    # I need to change this plotting. It breaks things when I update the page
+    # xgboost.plot_importance(model)
+    # st.pyplot(matplotlib.pyplot.show())
+
+    test_predictions = model.predict(X_test)
+    mse_result = sklearn.metrics.mean_squared_error(y_test, test_predictions, squared=False)
+    st.metric("my metric", mse_result)
 
     ### PART 7. Provide a space on the app where the users can input new values for their features and get a prediction based on the fit model.
     # data editor widget? https://docs.streamlit.io/library/api-reference/data/st.data_editor
-    # yes, set num_rows to dynamic on the chosen features dataframe
+    # yes, set num_rows to dynamic on the created chosen features dataframe
+    """
+    # Run Predictions
+    """
+    # Need to make this a new/copied version of features otherwise it will go back to rerun the model training too early
+    st.data_editor(features, num_rows='dynamic')
 
     ### PART 8. Allow them to download their [`.pickle` model file](https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/).
+    # I used the docs as well. https://docs.streamlit.io/library/api-reference/widgets/st.download_button
+    """
+    # Download Model
+    """
+    with open(filename, "rb") as file:
+        st.download_button(
+            label="Download Pickle",
+            data=file,
+            file_name=filename
+        )
