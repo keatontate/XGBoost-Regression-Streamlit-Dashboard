@@ -1,8 +1,11 @@
 from collections import namedtuple
+from sklearn.model_selection import train_test_split
+# from xgboost import XGBRegressor
 import altair as alt
 import math
 import pandas as pd
 import streamlit as st
+
 
 """
 # Welcome to Streamlit, doodette!
@@ -46,14 +49,22 @@ with st.echo(code_location='below'):
 
     ### PART 2. Require the user to select the `target` variable.
     target = st.selectbox('Select the target variable', data.columns)
-    st.write(target)
+    target
 
     ### PART 3. Allow the users to pick the features they want to use in their ML model.
     features = st.multiselect('Select features to use in the model', data.columns)
-    st.write(features)
+    features
 
     ### PART 4. Provide a plot that allows the users to pick an x and plot it against their target (you can have it only work for numeric values).
-    
+    feature_selection = st.radio("What feature to plot against the target?",(features))
+
+    # I always forget Altair syntax: https://altair-viz.github.io/getting_started/overview.html#overview
+    # I could probably check the columns and do box plots for discrete variables, but I'm just gonna get it working with scatter plots first.
+    feature_target_chart = alt.Chart(data).mark_circle().encode(
+        x=feature_selection,
+        y=target
+    )
+    st.altair_chart(feature_target_chart)
 
     ### PART 5. Explain your ML model (pick something fun or easy) and provide them a`fit` button.
     
@@ -62,6 +73,7 @@ with st.echo(code_location='below'):
     
 
     ### PART 7. Provide a space on the app where the users can input new values for their features and get a prediction based on the fit model.
-    
+    # data editor widget? https://docs.streamlit.io/library/api-reference/data/st.data_editor
+    # yes, set num_rows to dynamic on the chosen features dataframe
 
     ### PART 8. Allow them to download their [`.pickle` model file](https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/).
