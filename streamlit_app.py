@@ -7,6 +7,11 @@ from matplotlib import pyplot
 import pickle
 import numpy as np
 
+### Set app title/config
+st.set_page_config(
+    page_title="Keaton T. - Streamlit App",
+    page_icon=":thumbsup:",
+)
 
 ### Defining functions up here
 def plot_importances():
