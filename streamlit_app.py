@@ -40,7 +40,7 @@ def fit_save_model():
     st.session_state.filename = filename
     pickle.dump(model, open(filename, 'wb'))
 
-    st.write(st.session_state)
+    # st.write(st.session_state) # for debugging
 
 def display_metrics():
     test_predictions = st.session_state.model.predict(st.session_state.X_test)
