@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.253">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>challenge</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="challenge_files/libs/clipboard/clipboard.min.js"></script>
+<script src="challenge_files/libs/quarto-html/quarto.js"></script>
+<script src="challenge_files/libs/quarto-html/popper.min.js"></script>
+<script src="challenge_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="challenge_files/libs/quarto-html/anchor.min.js"></script>
+<link href="challenge_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="challenge_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="challenge_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="challenge_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="challenge_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="api-data-dashboard" class="level1">
+<h1>API ↦ DATA ↦ DASHBOARD</h1>
+<p>We learned about <a href="https://streamlit.io/">Streamlit</a>, <a href="https://www.docker.com/">Docker</a> and <a href="https://scikit-learn.org/stable/index.html">machine learning</a> during our student short courses. We will leverage all three of these in this challenge. <strong>We will not be using the semester project data or Spark in this challenge.</strong></p>
+<p>The <a href="data.csv">data.csv</a> file is the Seattle public housing data that you previously experienced in <a href="https://byui-cse.github.io/cse450-course/module-03/">CSE 450</a>.</p>
+<section id="coding-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="coding-challenge">Coding Challenge</h2>
+<section id="driving-needs" class="level3">
+<h3 class="anchored" data-anchor-id="driving-needs">Driving needs</h3>
+<p><em>Each of the items below must be addressed by your app.</em></p>
+<ol type="1">
+<li>Allow the users to upload the <a href="data.csv">data.csv</a> file into the app.</li>
+<li>Require the user to select the <code>target</code> variable.</li>
+<li>Allow the users to pick the features they want to use in their ML model.</li>
+<li>Provide a plot that allows the users to pick and x and plot it against their target (you can have it only work for numeric values).</li>
+<li>Explain your ML model (pick something fun or easy) and provide them a<code>fit</code> button.</li>
+<li>Report a feature importance plot and at least one measure of model fit.</li>
+<li>Provide a space on the app where the users can input new values for their features and get a prediction based on the fit model.</li>
+<li>Allow them to download their <a href="https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/"><code>.pickle</code> model file</a>.</li>
+</ol>
+</section>
+<section id="data-science-dashboard" class="level3">
+<h3 class="anchored" data-anchor-id="data-science-dashboard">Data Science Dashboard</h3>
+<p>We will use Streamlit as our prototype dashboard tool, but we need to embed that streamlit app into a Docker container.</p>
+<p>Within this repository you can simply run <code>docker compose up</code> to leverage the <code>docker-compose.yaml</code> with your local folder synced with the container folder where the streamlit app is runnning.</p>
+<p>Alternatively, you could use <code>docker build -t streamlit .</code> to use the <code>Dockerfile</code> to build the image and then use <code>docker run -p 8501:8501 -v "$(pwd):/app:rw" streamlit</code> to start the container with the appropriate port and volume settings.</p>
+</section>
+<section id="repo-structure" class="level3">
+<h3 class="anchored" data-anchor-id="repo-structure">Repo Structure</h3>
+<p>Your repo should be built so that I can clone the repo and run the Docker command (<code>docker compose up</code>) as described in your <code>readme.md</code> that allows me to see your app in my web browser without requiring me to install Streamlit on my computer.</p>
+<ol type="1">
+<li>Fork this repo to your private space</li>
+<li>Add me to your private repo in your space (<code>hathawayj</code>)</li>
+<li>Build your app and Docker container</li>
+<li>Update your <code>readme.md</code> with details about your app and how to start it.</li>
+<li>Submit the link to your repo to me in Canvas within your vocabulary/longo challenge.</li>
+</ol>
+</section>
+</section>
+<section id="vocabularylingo-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="vocabularylingo-challenge">Vocabulary/Lingo Challenge</h2>
+<p><em>Within a <code>.md</code> file in your repository and as a submitted <code>.pdf</code> or <code>.html</code> on Canvas, address the following items;</em></p>
+<ol type="1">
+<li>A link to your repo that you have shared with me.</li>
+<li>Explain the added value of using DataBricks in your Data Science process (using text, diagrams, or tables).</li>
+<li>Compare and contrast PySpark to either Pandas or the Tidyverse (using text, diagrams, or tables).</li>
+<li>Explain Docker to somebody intelligent but not a tech person (using text, diagrams, or tables).</li>
+</ol>
+<p><em>Your answers should be clear, detailed, and no longer than is needed. Imagine you are responding to a client or as an interview candidate.</em></p>
+<ul>
+<li><em>Clear:</em> Clean sentences and nicely laid out format.</li>
+<li><em>Detailed:</em> You touch on all the critical points of the concept. Don’t speak at too high a level.</li>
+<li><em>Brevity:</em> Don’t ramble. Get to the point, and don’t repeat yourself.</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li><a href="https://streamlit.io/">Streamlit Dashboard</a></li>
+<li><a href="https://www.docker.com/">Docker</a></li>
+<li><a href="https://kapeli.com/cheat_sheets/Dockerfile.docset/Contents/Resources/Documents/index">Dockerfile cheat sheet</a></li>
+<li><a href="https://docs.streamlit.io/knowledge-base/tutorials/deploy/docker">Streamlit deploy in Docker</a></li>
+<li><a href="https://maelfabien.github.io/project/Streamlit/#">Streamlit and Docker</a></li>
+<li><a href="https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/">Save and Load ML models</a></li>
+<li><a href="https://byui-cse.github.io/cse450-course/module-03/">Project 3 in CSE 450</a></li>
+</ul>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

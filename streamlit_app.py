@@ -3,7 +3,6 @@ import xgboost
 import altair as alt
 import pandas as pd
 import streamlit as st
-import matplotlib
 from matplotlib import pyplot
 import pickle
 import numpy as np
@@ -41,11 +40,14 @@ def fit_save_model():
 def display_metrics():
     test_predictions = st.session_state.model.predict(st.session_state.X_test)
     mse_result = sklearn.metrics.mean_squared_error(st.session_state.y_test, test_predictions, squared=False)
+
     st.metric("Mean Squared Error", mse_result)
+    # https://www.statology.org/rmse-vs-r-squared/
+    st.metric("RMSE (Root Mean Squared Error)", np.sqrt(mse_result))
 
 """
-# Title
-Explanation
+# Regression Dashboard
+This dashboard takes in a data file prepared for an XGBoost regression model. After you upload your data and select your target/features, you can download the model and run predictions on it.
 """
 
 """
@@ -64,10 +66,15 @@ if uploaded_data is not None:
     ### PART 2. Require the user to select the `target` variable.
     target = st.selectbox('Select the target variable', data.columns)
     ### PART 3. Allow the users to pick the features they want to use in their ML model.
-    features = st.multiselect('Select features to use in the model', data.columns)
-    ### PART 4. Provide a plot that allows the users to pick an x and plot it against their target (you can have it only work for numeric values).            
-    feature_selection = st.radio("What feature to plot against the target?",(features))
+    features = st.multiselect("Select features to use in the model. (Don't select the target)", data.columns)
+    ### PART 4. Provide a plot that allows the users to pick an x and plot it against their target (you can have it only work for numeric values).
+    """
+    # Examine Features
+    Select which feature you would like to plot against the target to view relationships. 
+    """        
+    feature_selection = st.radio("What feature?",(features))
 
+    
     # I always forget Altair syntax: https://altair-viz.github.io/getting_started/overview.html#overview
     # I could probably check the columns and do box plots for discrete variables, but I'm just gonna get it working with scatter plots first.
     if st.button("Plot"):
@@ -75,12 +82,19 @@ if uploaded_data is not None:
             x=feature_selection,
             y=target
         )
-        st.altair_chart(feature_target_chart)
+        st.altair_chart(feature_target_chart, use_container_width=True)
 
     ### PART 5. Explain your ML model (pick something fun or easy) and provide them a`fit` button.
     """
     # Train Model
-    This is an XGBoost regressor. EXPLAIN MORE!!! You can click the fit button now. If you desire to retrain the model, please refresh the page.
+    This is an XGBoost regressor. Extreme Gradient Boosting improves the performance of other tree-like models like Scikit-learn's `RandomForest()`.
+    It is a supervised machine learning model that creates a decision tree ensemble, then optimizes that ensemble to find the most efficient trees.
+    
+    For more information about the model, click [here](https://xgboost.readthedocs.io/en/latest/tutorials/model.html). 
+    For a simpler explanation to build intuition, click [here](https://towardsdatascience.com/xgboost-regression-explain-it-to-me-like-im-10-2cf324b0bbdb). 
+    
+    You can click the fit button now. After the model trains it will plot the feature importances.
+    If you desire to retrain the model, please refresh the page to clear the session.
     """
 
     if 'model' not in st.session_state:
@@ -96,6 +110,7 @@ if uploaded_data is not None:
         # yes, set num_rows to dynamic on the created chosen features dataframe
         """
         # Run Predictions
+        Select values to test for the features you picked when building the model. The prediction will be in the same units as your target variable.
         """
         # I don't think the editor widget works. I'm going to use a form instead.
 
@@ -118,6 +133,8 @@ if uploaded_data is not None:
         # I used the docs as well. https://docs.streamlit.io/library/api-reference/widgets/st.download_button
         """
         # Download Model
+        The model is saved in a standard pickle format. Click below to save if you're happy with the predictions. 
+        If not, refresh the page and try retraining the model with different features.
         """
         with open(st.session_state.filename, "rb") as file:
             st.download_button(
