@@ -120,10 +120,6 @@ if uploaded_data is not None:
         """
         # I don't think the editor widget works. I'm going to use a form instead.
 
-        # Need to make this a new/copied version of features otherwise it will go back to rerun the model training
-        # user_prediction_data = pd.DataFrame(columns=features)
-        # st.data_editor(user_prediction_data, num_rows='dynamic')
-
         # I'm going to follow this form code: https://subscription.packtpub.com/book/data/9781803248226/5/ch05lvl1sec31/training-models-inside-streamlit-apps
         predictions = []
         with st.form("Add Predictions"):
