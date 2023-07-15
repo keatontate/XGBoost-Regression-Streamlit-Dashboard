@@ -1,17 +1,18 @@
-# Challenge General Information
+# XGBoost Regression Streamlit Dashboard
 
-You can read the details of the challenge at [challenge.md](challenge.md)
+This app is designed to run an XGBoostRegressor model on user-uploaded data. It is the final project for DS 460 and was designed to take in Seattle housing data from the DS 450 class.
 
-## Key Items
+## Installation
 
-- __Due Date:__ 7/19/2023
-- __Work Rules:__ You cannot work with others.  You can ask any question you want in our general channel. Teacher and TA are the only ones that can answer questions. If you leverage code from an internet connection, then it should be referenced.
-- __Product:__ A streamlit app that runs within Docker and builds from your repo.
-- __Github Process:__ Each student will fork the challenge repository and create their app. They will submit a link to the Repo in Canvas.
-- __Canvas Process:__ Each student will upload a `.pdf` or `.html` files with your results as described in [challenge.md](challenge.md)
+### Prerequisites
+- Docker 
 
+To install, clone this repository and run 
 
-## Notes & References
+`docker-compose up` 
 
-- [Fork a repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
-- [Creating a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)
+from this directory. It should deploy on [localhost](https://0.0.0.0:8501), accessible via your browser.
+
+## Info
+
+The app is made using Streamlit, and uses the packages found in [the requirements.txt file.](./requirements.txt)
