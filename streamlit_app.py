@@ -44,6 +44,7 @@ def display_metrics():
     st.metric("Mean Squared Error", mse_result)
     # https://www.statology.org/rmse-vs-r-squared/
     st.metric("RMSE (Root Mean Squared Error)", np.sqrt(mse_result))
+    st.write("The RMSE gives the average value the target predictions are off from the actual values in units of the target.")
 
 """
 # Regression Dashboard
