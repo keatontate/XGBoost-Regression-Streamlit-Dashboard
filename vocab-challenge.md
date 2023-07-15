@@ -1,6 +1,7 @@
 # 1. A link to your repo that you have shared with me.
    
    [The repo in question](https://github.com/keatontate/app_challenge_sp23/)
+   
 # 2. Explain the added value of using DataBricks in your Data Science process (using text, diagrams, or tables).
         
 DataBricks takes care of the backend Apache Spark DevOps that can be time-consuming to manage for data scientists. They connect to your team's cloud provider to retrieve large datasets, and include collaborative notebook editing. This simplifies complex workflows between teams.
