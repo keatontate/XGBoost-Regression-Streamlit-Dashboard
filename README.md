@@ -11,7 +11,7 @@ To install, clone this repository and run
 
 `docker-compose up` 
 
-from this directory. It should deploy on [localhost](https://0.0.0.0:8501), accessible via your browser.
+from this directory. It should deploy on [localhost](https://0.0.0.0:8501), port 8501, accessible via your browser.
 
 ## Info
 
